@@ -431,7 +431,9 @@ class TestDHCPDiscoveryClean(CiTestCase):
     @mock.patch("cloudinit.net.dhcp.os.remove")
     @mock.patch("cloudinit.net.dhcp.subp.subp")
     @mock.patch("cloudinit.net.dhcp.subp.which")
-    def test_dhcp_client_failover(self, m_which, m_subp, m_remove, m_fallback):
+    def test_dhcp_client_failover(
+        self, m_which, m_subp, m_remove, m_fallback
+    ):
         """Log and do nothing when nic is absent and no fallback is found."""
         m_subp.side_effect = [
             ("", ""),
@@ -447,8 +449,8 @@ class TestDHCPDiscoveryClean(CiTestCase):
             self.logs.getvalue(),
         )
         self.assertIn(
-           "DHCP client not found: dhcpcd",
-           self.logs.getvalue(),
+            "DHCP client not found: dhcpcd",
+            self.logs.getvalue(),
         )
 
     @mock.patch("cloudinit.net.dhcp.find_fallback_nic", return_value=None)
@@ -735,13 +737,13 @@ class TestDHCPDiscoveryClean(CiTestCase):
         tmpdir = self.tmp_dir()
         lease_content = dedent(
             """
-                lease {
-                  interface "eth9";
-                  fixed-address 192.168.2.74;
-                  option subnet-mask 255.255.255.0;
-                  option routers 192.168.2.1;
-                }
-            """
+            lease {
+              interface "eth9";
+              fixed-address 192.168.2.74;
+              option subnet-mask 255.255.255.0;
+              option routers 192.168.2.1;
+            }
+        """
         )
         lease_file = os.path.join(tmpdir, "dhcp.leases")
         write_file(lease_file, lease_content)
