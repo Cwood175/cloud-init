@@ -235,12 +235,6 @@ class TestMAASDataSource:
             "vendor-data": "my-vendordata",
         }
 
-        responses.add(
-            responses.GET,
-            url=f"{metadata_url}/2012-03-01/meta-data/instance-id",
-            status=404,
-        )
-
         for key, value in response_data.items():
             responses.add(
                 responses.GET,

@@ -256,11 +256,11 @@ PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
             code, reason = status.get_bootstatus(
                 config.disable_file, config.paths, False
             )
-        assert code == expected_bootstatus, failure_msg
-        if isinstance(expected_reason, str):
-            assert reason == expected_reason
-        else:
-            assert reason == expected_reason(config)
+            assert code == expected_bootstatus, failure_msg
+            if isinstance(expected_reason, str):
+                assert reason == expected_reason
+            else:
+                assert reason == expected_reason(config)
 
     @mock.patch(M_PATH + "read_cfg_paths")
     def test_status_returns_not_run(

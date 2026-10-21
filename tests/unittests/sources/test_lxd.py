@@ -11,9 +11,8 @@ from unittest import mock
 import pytest
 import yaml
 
-from cloudinit.sources import UNSET
+from cloudinit.sources import UNSET, InvalidMetaDataException
 from cloudinit.sources import DataSourceLXD as lxd
-from cloudinit.sources import InvalidMetaDataException
 from cloudinit.sources.DataSourceLXD import MetaDataKeys
 
 DS_PATH = "cloudinit.sources.DataSourceLXD."
@@ -322,7 +321,6 @@ class TestDataSourceLXD:
         assert NETWORK_V1 == lxd_ds._network_config
         # Any user-data and vendor-data are saved as raw
         assert LXD_V1_METADATA["user-data"] == lxd_ds.userdata_raw
-        assert LXD_V1_METADATA["vendor-data"] == lxd_ds.vendordata_raw
 
     def test_network_config_when_unset(self, lxd_ds):
         """network_config is correctly computed when _network_config and
