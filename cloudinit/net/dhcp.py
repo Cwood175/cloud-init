@@ -592,6 +592,14 @@ class Dhcpcd:
                 error.stdout,
             )
             raise NoDHCPLeaseError from error
+
+        # If a logging callback was provided, pass the subprocess output to it
+        if dhcp_log_func is not None:
+            try:
+                dhcp_log_func(out, err)
+            except Exception:
+                LOG.debug("dhcp_log_func raised an exception", exc_info=True)
+
         return self.parse_dhcp_lease_file(interface)
 
     @staticmethod
